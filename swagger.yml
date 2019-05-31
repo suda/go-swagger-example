@@ -1,0 +1,46 @@
+swagger: "2.0"
+
+info:
+  title: Go Swagger Example
+  version: 0.1.0
+
+definitions:
+  Tweet:
+    type: object
+    required:
+      - contents
+    properties:
+      id:
+        type: integer
+        readOnly: true
+        x-go-custom-tag: gorm:"primary_key"
+      contents:
+        type: string
+      userId:
+        type: integer
+        readOnly: true
+      numberOfCharacters:
+        type: integer
+        minimum: 1
+
+consumes:
+  - application/json
+produces:
+  - application/json
+schemes:
+  - http
+
+paths:
+  /tweets:
+    get:
+      summary: List the tweets
+      tags:
+        - tweets
+      operationId: tweetsList
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Tweet"
